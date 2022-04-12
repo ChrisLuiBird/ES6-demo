@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+//接口地址 https://api.apiopen.top/getJoke
+        
+
+        const p = new Promise(function(resolve, reject){
+            const url = 'https://api.apiopen.top/getJok';
+            //创建对象        
+            const xhr = new XMLHttpRequest();
+            //配置请求
+            xhr.open("GET", url);
+
+            //发生请求
+            xhr.send();
+            xhr.onreadystatechange = function(){
+                //4 是最后一步 准备获取数据, 一般来说 介于 200-300区间为请求成功的status code
+                if(xhr.readyState === 4){
+                    if(xhr.status >= 200 && xhr.status <= 300){
+                        // console.log(xhr.response) 这个是不用promise异步处理, 在函数内处理 结构复杂且不清晰
+
+                        resolve(xhr.response) //使用promise的回调
+                    }else{
+                        // console.error(xhr.status) 同上
+                        reject(xhr.status)
+                    }
+                }
+            }
+        })
+
+        p.then(function(value){
+            console.log(value)
+        }, function(err){
+            console.error(err)
+        })
+
+
+       
+    </script>
+</body>
+</html>

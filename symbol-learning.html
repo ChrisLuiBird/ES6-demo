@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>symbol学习</title>
+</head>
+<body>
+    <script>
+
+        //向对象中添加方法
+        let game = {
+            name:'chris',
+            up: function(){
+                console.log('inside up touch')
+            },
+            down: function(){
+                console.log('inside down touch')
+            }
+        };
+
+        let methods = {
+            up:Symbol(),
+            down: Symbol()
+        };
+
+        game[methods.up] = function(){
+            console.log('up touch')
+        }
+        game[methods.down] = function(){
+            console.log('down touch')
+        }
+        console.log(game); //虽然up方法重复 但是不会破坏, 而是唯一值
+        console.log(game[methods.up]()) //调用 symbol方法
+    </script>
+</body>
+</html>

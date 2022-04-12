@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    //生成器的特性, 使其可以做异步
+        //定义生成器函数 
+        function * gen(args){
+            console.log(args);
+            let f = yield first = '第一个语句';
+            console.log(f);
+            let s = yield seconde = '第二个语句';
+            console.log(s);
+
+            let t = yield third = '第三个语句';
+            console.log(t);
+        }
+
+        let iterator = gen(123);
+        //此处传参 会把123作为参数传进去
+        iterator.next(123);
+
+        //此处传参 会把 456 作为 第一条next的结果返回 会加上此次next的结果
+        iterator.next(456);
+
+        //此处传参 会把 789 作为 第二条next的结果返回 会加上此次next的结果
+        iterator.next(789);
+    
+
+    //生成器 实例1 定时器  其他: 异步编程(类似文件夹, ajax, 网络操作)
+    //实现 1s 输出111 2s 输出 222   3s输出 333 
+
+        //传统的写法 缺点是如果新加一个定时器 就会有无限嵌套的场景
+        // setTimeout(() => {
+        //     console.log(111);
+        //     setTimeout(() => {
+        //         console.log(222);
+        //         setTimeout(() => {
+        //             console.log(333)
+        //         }, 3000);
+        //     }, 2000);
+        // }, 1000);
+        //生成器写法
+
+        function one(){
+            setTimeout(() => {
+                console.log(111)
+                i.next();
+            }, 1000);
+        }
+        function two(){
+            setTimeout(() => {
+                console.log(222)
+                i.next();
+            }, 2000);
+        }
+        function three(){
+            setTimeout(() => {
+                console.log(333)
+                i.next()
+            }, 3000);
+        }
+
+        function * gen2 (){
+            yield one();
+            yield two();
+            yield three();
+        }
+
+        let i = gen2();
+        i.next();
+
+
+        //生成器 案例2 模拟获取数据, 订单数据, 商品数据  真实场景中, 一定要按顺序调用3个函数
+
+        function getUser(){
+            setTimeout(() => {
+                let data = "用户数据";
+                i2.next(data);
+            }, 1000);
+        }
+
+        function getOrder(){
+            setTimeout(() => {
+                let data = "订单数据";
+                i2.next(data);
+            }, 1000);
+        }
+
+        function getGoods(){
+            setTimeout(() => {
+                let data = "商品数据";
+                i2.next(data);
+            }, 1000);
+        }
+
+        function * gen3(){
+            let users = yield getUser();
+            console.log(users)
+            let order = yield getOrder();
+            console.log(order)
+            let goods = yield getGoods();
+            console.log(goods)
+        }
+
+        let i2 = gen3();
+        i2.next();
+
+
+
+
+
+
+
+
+
+
+    </script>
+</body>
+</html>

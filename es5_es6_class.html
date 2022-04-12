@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        //ES 5 类继承 及构造方法 原型链实现
+        function Phone(brand, price){
+            this.brand = brand;
+            this.price = price;
+        }
+        Phone.prototype.callPhone = () =>{
+            console.log("callPhone method");
+        }
+
+        function SmartPhone(brand, price, color){
+            Phone.call(this, brand, price);
+            this.color = color;
+        }
+        //设置子原形
+        SmartPhone.prototype = new Phone;
+        SmartPhone.prototype.constructor = SmartPhone;
+
+        SmartPhone.prototype.play = () =>{
+            console.log('play method')
+        }
+
+        const newPhone = new SmartPhone('apple', 5000, 'black');
+        console.log(newPhone);
+
+
+
+        //ES6 类继承与构造方法
+        class Phone2{
+            constructor(brand, price){
+                this.brand = brand;
+                this.price = price;
+            }
+
+            callPhone(){
+                console.log("callPhone method");
+            }
+        }
+
+        class SmartPhone2 extends Phone2{
+            constructor(brand, price, color){
+                super(brand, price);
+                this.color = color;
+            }
+
+            play(){
+                console.log('play method')
+            }
+        }
+
+        const newPhone2 = new SmartPhone2('xiaomi', 800, 'color');
+        console.log(newPhone2);
+    </script>
+</body>
+</html>

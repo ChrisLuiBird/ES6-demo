@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const p = new Promise(function(resolve, reject){
+            setTimeout(() => {
+                // resolve('成功');
+                reject('失败');
+            }, 1000);
+        })
+
+
+         //测试 then的返回值
+         let rspnJson = p.then(function(value){
+            console.log(value)
+            return 123;
+        }, function(err){
+            console.error(err)
+            // return {error: err};
+        })
+        console.log(rspnJson)
+
+        //then的链式调用
+        // p.then(value=>{}).then(value=>{})
+    </script>
+</body>
+</html>

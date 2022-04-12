@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const xiyou = ['123', '456', '789'];
+
+    //原理
+        //普通遍历
+        for(let v of xiyou){
+            console.log(v);
+        }
+
+        // let iterator = Symbol.iterator(xiyou); //错误写法
+        // let iterator = xiyou[Symbol.iterator]();
+        // console.log(iterator.next().value);
+        // console.log(iterator.next().value);
+        // console.log(iterator.next().value);
+        // console.log(iterator.next().value);
+     
+    //自定义遍历数组
+
+        const store = {
+            name: 'my store',
+            goods:['pen', 'notes', 'A4 paper'],
+
+
+            //是一个迭代器, 而不是一个方法
+            [Symbol.iterator](){
+                let index = 0;
+                return {
+                    //因为使用箭头函数, 所以this直接拿的上一层的, 如果使用function函数 就要用_this去储存上一层的this
+                    next: () => {
+                        return {value: this.goods[index++], done: this.goods.length < index};
+                    }
+                }
+            }
+        }
+        
+        let s1 = store;
+        for(let v of store){
+            console.log(v);
+        }
+    </script>
+</body>
+</html>
