@@ -56,10 +56,27 @@
             play(){
                 console.log('play method')
             }
+
+            callPhone(){
+                console.log("overwrite callPhone of super method");
+            }
+
+            get price(){
+                console.log(`${this._price}被获取`)
+                //此处注意 如果使用 this.price 会出现无限递归的情况, 在vue中已经解决, 因为this.price是调用的自身的 price 会无限调用
+                return this._price;
+            }
+            //在构造器有该属性时 默认调用1次
+            set price(value){
+                console.log(`${value}被设置成新的价格`)
+                this._price = value;
+            }
         }
 
         const newPhone2 = new SmartPhone2('xiaomi', 800, 'color');
         console.log(newPhone2);
+        newPhone2.price;
+        newPhone2.price = 100;
     </script>
 </body>
 </html>
